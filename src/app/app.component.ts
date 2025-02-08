@@ -1,16 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ExampleComponent } from './components/example/example.component';
+import { AuthserviceService } from './services/authservice.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule, ExampleComponent],
+  imports: [RouterOutlet,CommonModule],
   templateUrl: './app.component.html',
   styles: [],
 })
-export class AppComponent {
-  title = 'RECYCLEHUB';
+export class AppComponent implements OnInit {
+  
+  authService = inject(AuthserviceService);
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      if(user) {
+        this.authService.currentUserSignal.set({
+          id: user.uid,
+          email: user.email!,
+          name: user.displayName!
+        })
+      }
+      else {
+        this.authService.currentUserSignal.set(null);
+      }
+
+      console.log(this.authService.currentUserSignal());
+      
+    })
+  }
   
 }

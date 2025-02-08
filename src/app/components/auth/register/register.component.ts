@@ -51,11 +51,10 @@ export class RegisterComponent {
     
     this.authService.register(this.registerRequest).subscribe({
       next: (res) => {
-       this.router.navigate(['']);
+       this.router.navigate(['login']);
       },
       error: (err) => {
-        this.errorMsg.push(err.code);
-           
+        this.errorMsg.push(err.code);           
       }
     })
   }
