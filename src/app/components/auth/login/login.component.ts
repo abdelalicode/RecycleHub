@@ -41,8 +41,23 @@ export class LoginComponent {
 
     this.authService.login(this.authRequest).subscribe({
       next: (res) => {
-       console.log(res.user.uid);
-       this.router.navigate(['']);
+      //  console.log(res.user.uid);
+       this.authService.getCurrentUser().then(user => {
+
+        if(user) {
+          if("individual" === user.role) {
+            this.router.navigate(['']);
+          }
+          else if (("collector" === user.role)) {
+            this.router.navigate(['collector-dash']);
+          }
+        }
+        else {
+          return;
+        }
+      });
+       
+      //  
       },
       error: (err) => {
         this.errorMsg.push(err.code);

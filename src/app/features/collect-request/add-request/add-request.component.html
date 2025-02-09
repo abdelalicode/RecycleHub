@@ -1,0 +1,82 @@
+<app-header></app-header>
+<div class="mx-24 py-8 px-6 w-auto h-auto bg-white bg-opacity-30 rounded-lg shadow-lg backdrop-blur-xl backdrop-filter">
+  <h1 class="text-3xl font-extrabold text-center text-gray-300 mb-5">Add New Request</h1>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="flex gap-8 justify-center">
+      <div class="mb-5">
+        <label class="text-gray-200 font-semibold mb-2" for="weight">Estimated Weight in g</label>
+        <input
+          class="text-white bg-transparent border rounded-lg shadow border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 py-2 px-4 block w-full appearance-none leading-normal"
+          type="number" id="weight" name="weight" [formControl]="weightControl" required />
+        <div *ngIf="isWeightInvalid" class="text-red-500 text-sm mt-1">
+          The estimated weight must be at least 1000 grams.
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label class="text-gray-200 font-semibold mb-2" for="name">City</label>
+        <input
+          class="bg-transparent text-white border rounded-lg shadow border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 py-2 px-4 block w-full appearance-none leading-normal"
+          type="text" id="name" name="city" [formControl]="cityControl" required />
+      </div>
+
+      <div class="mb-5">
+        <label class="text-gray-200 font-semibold mb-2" for="address">Address</label>
+        <input
+          class="text-white bg-transparent border rounded-lg shadow border-gray-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 py-2 px-4 block w-full appearance-none leading-normal"
+          type="text" id="address" name="address" [formControl]="adressControl" required />
+      </div>
+    </div>
+
+    <div class="flex justify-center gap-12">
+      <div class="mb-5">
+        <label class="text-gray-200 font-semibold mb-2">Select Waste Type(s)</label>
+        <div class="flex flex-wrap gap-4">
+          <div *ngFor="let wasteType of wasteTypes" class="flex items-center">
+            <input type="checkbox" [id]="wasteType.id" [value]="wasteType.label"
+              [checked]="selectedWasteTypes.includes(wasteType.label)"
+              (change)="onWasteTypeChange(wasteType.label, $event)"
+              class="text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+            <label [for]="wasteType.id" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{
+              wasteType.label }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label class="text-gray-200 font-semibold mb-2">Select Date and Time</label>
+        <div class="flex gap-4">
+          <div>
+            <label class="text-gray-200 font-semibold mb-2">Date</label>
+            <input
+              type="date"
+              [formControl]="dateControl"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required />
+          </div>
+
+          <div>
+            <label class="text-gray-200 font-semibold mb-2">Time</label>
+            <input
+              type="time"
+              [formControl]="timeControl"
+              min="09:00"
+              max="18:00"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required />
+            <div *ngIf="isTimeInvalid" class="text-red-500 text-sm mt-1">
+              Please select a time between 09:00 and 18:00.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="bg-gradient-to-r mx-44 from-purple-400 to-indigo-500 text-slate-300 font-semibold p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out mb-5"
+      type="submit">
+      Add Request
+    </button>
+  </form>
+</div>

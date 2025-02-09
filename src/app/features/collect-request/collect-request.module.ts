@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 
 import { CollectRequestRoutingModule } from './collect-request-routing.module';
 
@@ -9,6 +9,6 @@ import { CollectRequestRoutingModule } from './collect-request-routing.module';
   imports: [
     CommonModule,
     CollectRequestRoutingModule
-  ]
+  ],
 })
 export class CollectRequestModule { }

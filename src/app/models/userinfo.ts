@@ -7,4 +7,5 @@ export interface UserInfo {
   uid: string;
   phoneNumber: string;
   providerId: string;
+  role: string;
 }

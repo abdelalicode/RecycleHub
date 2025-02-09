@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent{
 
+
       authService = inject(AuthserviceService);
       router = inject(Router);
 
@@ -22,6 +23,10 @@ export class HeaderComponent{
 
       profile() {
         this.router.navigate(['profile']);
+      }
+
+      home() {
+       this.router.navigate(['']);
       }
 
       

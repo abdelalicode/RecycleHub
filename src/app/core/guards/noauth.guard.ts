@@ -6,7 +6,7 @@ export const noauthGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthserviceService);
   const router = inject(Router);
   
-  const currentUser = authService.currentUserSignal();
+  const currentUser = localStorage.getItem('user');
   if (!currentUser) {
     return true;
   }

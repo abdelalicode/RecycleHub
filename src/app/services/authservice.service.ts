@@ -48,6 +48,8 @@ export class AuthserviceService {
 
   logout() : Observable<void> {
     const promise = signOut(this.firebaseAuth);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     return from(promise);
   }
 

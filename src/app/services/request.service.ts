@@ -1,5 +1,7 @@
+import { AuthserviceService } from './authservice.service';
 import { inject, Injectable } from '@angular/core';
-import { Firestore, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Request } from '../models/request.type';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +9,16 @@ import { Firestore, collection } from '@angular/fire/firestore';
 export class RequestService {
 
     firestore: Firestore = inject(Firestore);
+    authservice: AuthserviceService = inject(AuthserviceService);
 
-
-    // addRequest(wasteType: string[], weight: number, address: string, date: string) {
-    
-    //     return collection(this.firestore,'recyquest').add({
-    //       userId: 1,
-    //       wasteType,
-    //       weight,
-    //       address,
-    //       date,
-    //       status: 'Pending'
-    //     });
-    // }
+    async addRequest(request: Request) {
+      try {
+        const requestsCollection = collection(this.firestore, 'recyquest');
+        await addDoc(requestsCollection, request);
+        console.log('Request added successfully!');
+      } catch (error) {
+        console.error('Error adding request: ', error);
+      }
+    }
   
 }
