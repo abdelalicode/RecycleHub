@@ -25,6 +25,7 @@ export class AuthserviceService {
 
       const userRef = doc(this.firestore, `users/${response.user.uid}`);
       const userDocData = {
+        uid: response.user.uid,
         firstName: params.firstName,
         lastName: params.lastName,
         email: params.email,

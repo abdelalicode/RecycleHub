@@ -1,23 +1,126 @@
 <div class="h-screen w-full bg-white relative flex overflow-hidden">
 
  <app-sidebar></app-sidebar>
-    <div class="w-full h-full flex flex-col justify-between">
+    <div class="w-full h-full flex flex-col justify-between overflow-y-scroll">
       <app-dash-header></app-dash-header>
-  
-      <!-- Main -->
-      <main class="max-w-full h-full flex relative overflow-y-hidden">
+
+      <h2 class="text-lg font-bold mx-4 mt-4">PENDING REQUESTS</h2>
+      <main class="max-w-full min-h-72 h-full flex relative">
         <!-- Container -->
+        
         <div class="h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
           <!-- Container -->
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
-          <div class="w-96 h-60 rounded-lg flex-shrink-0 flex-grow bg-gray-400"></div>
+
+          
+          @for (req of pending(); track $index) {
+
+              <div class="w-96 p-8 h-60 rounded-lg  bg-gray-400" style="background-image: url('https://img.freepik.com/psd-gratuit/arriere-plan-gradient-bleu-abstrait-moderne_84443-3712.jpg?t=st=1739122743~exp=1739126343~hmac=75b8cc1cfdde21a5110e19eb00eaa64238e3b9635a1b6335e298ed7e5a54b3ce&w=1380'); background-size: cover; background-position: center;">
+
+                <h2 class="text-white text-lg ">City: <span class="font-bold">{{req.city}}</span></h2>
+                <h3 class="text-white text-md ">Address: <span class="font-bold">{{req.address}}</span></h3>
+                <h3 class="text-white text-md ">Estimated Weight: <span class="font-bold">{{req.weight}} g</span></h3>
+                <h3 class="text-white text-md ">Type: <span class="font-bold">{{req.wasteType}}</span></h3>
+                <div class="bg-slate-400 w-24 rounded-md text-white text-center  mt-2">{{req.status}}</div>
+  
+  
+                <div class="flex mt-2 gap-4">
+                  
+                  <button (click)="takerequest(req.id!)" class="bg-cyan-500 hover:bg-cyan-400 text-white font-medium py-1 px-3 border-b-4 border-cyan-700 hover:border-cyan-500 rounded">
+                    TAKE REQUEST
+                  </button>
+  
+                  <button (click)="reject(req.id!)" class="bg-red-500 hover:bg-red-400 text-white font-medium py-1 px-3 border-b-4 border-red-700 hover:border-red-500 rounded">
+                    Reject
+                  </button>
+                </div>
+                
+              </div>
+            
+          }
+
+
+            
+          
+          
+         
+        </div>
+      </main>
+
+
+      <h2 class="text-lg font-bold mx-4 mt-4">YOUR OCCUPIED REQUESTS</h2>
+      <main class="max-w-full min-h-72 h-full flex relative">
+        <!-- Container -->
+        
+        <div class="h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
+          <!-- Container -->
+
+          
+          @for (req of occupied(); track $index) {
+
+              <div class="w-96 p-8 h-60 rounded-lg  bg-gray-400" style="background-image: url('https://img.freepik.com/psd-gratuit/arriere-plan-gradient-bleu-abstrait-moderne_84443-3712.jpg?t=st=1739122743~exp=1739126343~hmac=75b8cc1cfdde21a5110e19eb00eaa64238e3b9635a1b6335e298ed7e5a54b3ce&w=1380'); background-size: cover; background-position: center;">
+
+                <h2 class="text-white text-lg ">City: <span class="font-bold">{{req.city}}</span></h2>
+                <h3 class="text-white text-md ">Address: <span class="font-bold">{{req.address}}</span></h3>
+                <h3 class="text-white text-md ">Estimated Weight: <span class="font-bold">{{req.weight}} g</span></h3>
+                <h3 class="text-white text-md ">Type: <span class="font-bold">{{req.wasteType}}</span></h3>
+                <div class="bg-yellow-600 w-24 rounded-md text-white text-center  mt-2">{{req.status}}</div>
+  
+  
+                <div class="flex mt-2 gap-4">
+                  
+                  <button  (click)="begin(req.id!)" class="bg-cyan-500 hover:bg-cyan-400 text-white font-medium py-1 px-3 border-b-4 border-cyan-700 hover:border-cyan-500 rounded">
+                    BEGIN COLLECT
+                  </button>
+                </div>
+                
+              </div>
+            
+          }
+
+
+            
+          
+          
+         
+        </div>
+      </main>
+
+
+      <h2 class="text-lg font-bold mx-4 mt-4">YOUR INPROGRESS REQUESTS</h2>
+      <main class="max-w-full min-h-72 h-full flex relative">
+        <!-- Container -->
+        
+        <div class="h-full w-full m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4 overflow-y-scroll">
+          <!-- Container -->
+
+          
+          @for (req of inprogress(); track $index) {
+
+              <div class="w-96 p-8 h-60 rounded-lg flex-shrink-0 flex-grow  bg-gray-400" style="background-image: url('https://img.freepik.com/psd-gratuit/arriere-plan-gradient-bleu-abstrait-moderne_84443-3712.jpg?t=st=1739122743~exp=1739126343~hmac=75b8cc1cfdde21a5110e19eb00eaa64238e3b9635a1b6335e298ed7e5a54b3ce&w=1380'); background-size: cover; background-position: center;">
+
+                <h2 class="text-white text-lg ">City: <span class="font-bold">{{req.city}}</span></h2>
+                <h3 class="text-white text-md ">Address: <span class="font-bold">{{req.address}}</span></h3>
+                <h3 class="text-white text-md ">Estimated Weight: <span class="font-bold">{{req.weight}} g</span></h3>
+                <h3 class="text-white text-md ">Type: <span class="font-bold">{{req.wasteType}}</span></h3>
+                <div class="bg-green-400 w-24 rounded-md text-white text-center  mt-2">{{req.status}}</div>
+  
+  
+                <div class="flex mt-2 gap-4">
+                  
+                  <button (click)="validate(req.id!)" class="bg-cyan-500 hover:bg-cyan-400 text-white font-medium py-1 px-3 border-b-4 border-cyan-700 hover:border-cyan-500 rounded">
+                    VALIDATE
+                  </button>
+                </div>
+                
+              </div>
+            
+          }
+
+
+            
+          
+          
+         
         </div>
       </main>
     </div>

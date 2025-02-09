@@ -86,7 +86,8 @@ export class AddRequestComponent {
         address: selectedAddress!,
         city: selectedCity!,
         date: dateTime.toISOString(),
-        status: 'Pending'
+        status: 'Pending',
+        collector: ''
       };
 
 
